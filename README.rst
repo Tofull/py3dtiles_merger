@@ -34,10 +34,44 @@ Installation
 Usage
 ###########
 
+To merge `<child_paths>/tileset.json` into one global `tileset.json`, use:
+
+    .. code-block:: shell
+    
+        # On windows
+        py3dtiles_merger.exe -v -r D:/data_py3dtiles/output_merged
+
+
+What's next ?
+############
+
+Once you have generate the global tileset.json, you can expose it over the Internet with any http server, like :
+
 .. code-block:: shell
 
-    # On windows
-    py3dtiles_merger.exe -v -r D:/data_py3dtiles/output_merged
+    # using https://www.npmjs.com/package/http-server
+    npm install http-server -g
+    http-server D:/data_py3dtiles/output_merged --cors -p 8080
+
+Then, your tileset is available over the Internet, and you can visualize it using 3d viewer, for example Cesium sandcastle : 
+
+1. Go to https://cesiumjs.org/Cesium/Build/Apps/Sandcastle/index.html
+2. Insert the following code on Javascript Code section : 
+
+    .. code-block:: javascript
+    
+        var viewer = new Cesium.Viewer('cesiumContainer');
+        var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+            url : 'http://127.0.0.1:8080/tileset.json'
+        }));
+
+3. Click Run (or F8) and enjoy.
+
+    .. image:: doc/assets/example_3dtiles_on_cesium.png
+        :width: 200px
+        :align: center
+        :height: 100px
+        :alt: Example on cesium
 
 
 Contribution
