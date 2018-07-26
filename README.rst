@@ -77,7 +77,7 @@ Then, your tileset is available over the Internet, and you can visualize it usin
 Contribution
 #############
 
-Contributions are welcome. Feel free to open an issue for a question, a remark, a typo, a bugfixe or a wanted feature.
+Contributions are welcome. Feel free to open an issue for a question, a remark, a typo, a bugfix or a wanted feature.
 
 
 
