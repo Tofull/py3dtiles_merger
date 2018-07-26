@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+import py3dtiles_merger
 
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
@@ -11,7 +12,7 @@ with open('README.rst') as f:
 
 setup(
     name='py3dtiles_merger',
-    version='0.3.4',
+    version=py3dtiles_merger.__version__,
     description="Merge independant 3dtiles tileset.json generated with py3dtiles into one.",
     long_description=long_description,
     author="Loïc Messal",
