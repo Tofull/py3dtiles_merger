@@ -3,10 +3,10 @@ py3dtiles_merger
 
     **Disclaimer:**
 
-    This project is under active development and has been created to generate data as fast as possible at Jakarto (rush time). It doesn't cover neither unit test, well-writen documentation, nor a sufficient level of abstraction to be used in differents contexts. However, I will be more than happy to remove this disclaimer when improvements will be done. Feel free to open an issue to help the project.
+    This project is under active development and has been created to generate data as fast as possible at Jakarto (rush time). It doesn't cover either unit test, well-written documentation, or a sufficient level of abstraction to be used in different contexts. However, I will be more than happy to remove this disclaimer when improvements will be done. Feel free to open an issue to help the project.
 
 
-A tool to merge independant 3dtiles to ease vizualization of big 3d data on `Cesium <https://cesiumjs.org/Cesium/Build/Apps/Sandcastle/index.html>`_ or `Itowns <https://github.com/iTowns/itowns>`_.
+A tool to merge independant 3dtiles to ease visualization of big 3d data on `Cesium <https://cesiumjs.org/Cesium/Build/Apps/Sandcastle/index.html>`_ or `Itowns <https://github.com/iTowns/itowns>`_.
 
 The 3dtiles must have been generated in the same format than `py3dtiles <https://github.com/Oslandia/py3dtiles>`_ output (branch `lasTo3dtiles` until it's merged).
 
@@ -22,7 +22,7 @@ py3dtiles_merger generate a `tileset.json` file which points to some `tileset.js
 Installation
 #############
 
-- Local installation *(recommanded until the project support pypi integration)*
+- Local installation *(recommended until the project support pypi integration)*
 
 .. code-block:: shell
 
@@ -45,7 +45,7 @@ To merge `<child_paths>/tileset.json` into one global `tileset.json`, use:
 What's next ?
 ############
 
-Once you have generate the global tileset.json, you can expose it over the Internet with any http server, like :
+Once you have generated the global tileset.json, you can expose it over the Internet with any http server, like :
 
 .. code-block:: shell
 
