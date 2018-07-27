@@ -6,6 +6,7 @@ import os
 
 from py3dtiles_merger.TilesetUtilities import TilesetUtilities
 
+
 class TilesetMerger(object):
     union_bounds = None
     children = []
@@ -47,6 +48,9 @@ class TilesetMerger(object):
 
     @classmethod
     def export_merged_tileset(cls):
+        if cls.union_bounds is None:
+            raise Exception("Union bounds is empty. Please, merge at least one tileset with {} function.".format(cls.append_child.__name__))
+
         output = {}
         output["asset"] = {
             "version": "1.0"

@@ -8,6 +8,7 @@ import os
 from py3dtiles_merger.TilesetParser import TilesetParser
 from py3dtiles_merger.TilesetMerger import TilesetMerger
 
+
 def command_line():
     parser = argparse.ArgumentParser(description='Generate a global tileset given a list of 3dtiles subfolders generated with py3dtiles.')
     parser.add_argument("--rootpath", '-r', type=str, default='.', help="Root path to find subfolder")
@@ -21,32 +22,40 @@ def command_line():
         print("Command line args : \n\t{}".format(vars(args)))
     parse_args(**vars(args))
 
+
 def parse_args(subfolders=None, rootpath=None, verbose=None, **kwargs):
     if not subfolders:
         if verbose > 0:
-            print("No subfolder specified. Auto detect subfolder from folder : {}".format(rootpath))
+            print("No subfolder specified. Auto detect subfolders from folder : {}".format(rootpath))
         subfolders = [name for name in os.listdir(rootpath) if os.path.isdir(os.path.join(rootpath, name))]
 
     if verbose > 0:
-        print("Detected {} file{}".format(len(subfolders), 's' if len(subfolders) > 1 else ''))
+        print("Detected {} folder{}".format(len(subfolders), 's' if len(subfolders) > 1 else ''))
+    if len(subfolders) == 0:
+        raise Exception("No subfolder detected. Abandon.")
     main(rootpath, subfolders, verbose=verbose)
 
 
 def main(rootpath, subfolders, verbose=0, **kwargs):
     if verbose > 0:
-        print("Prepare to merge {} file{}".format(len(subfolders), 's' if len(subfolders) > 1 else ''))
+        print("Prepare to merge {} folder{}".format(len(subfolders), 's' if len(subfolders) > 1 else ''))
     global_tileset = os.path.normpath(os.path.join(rootpath, 'tileset.json'))
     for index, subfolder in enumerate(subfolders):
         if verbose > 0:
             print("Step {} / {}".format(index + 1, len(subfolders)))
             try:
-                print("\t Tileset to merge : {}\n\t (base64-decoded): {}".format(subfolder, base64.b64decode(subfolder.encode()).decode('utf-8')))
+                print("\tTileset subfolder to merge : {}\n\t(base64-decoded): {}".format(subfolder, base64.b64decode(subfolder.encode()).decode('utf-8')))
             except Exception as _:
-                print("\t Tileset to merge : {}".format(subfolder))
+                print("\tTileset subfolder to merge : {}".format(subfolder))
                 pass
         tileset = os.path.normpath(os.path.join(rootpath, subfolder, "tileset.json"))
 
-        tilesetparser = TilesetParser(tileset)
+        try:
+            tilesetparser = TilesetParser(tileset)
+        except FileNotFoundError as e:
+            if verbose > 0:
+                print("\t{} Continue.".format(e))
+            continue
 
         geometricError = tilesetparser.geometricError
         bounds = tilesetparser.bounds

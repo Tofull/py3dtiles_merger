@@ -21,8 +21,11 @@ class TilesetParser(object):
         geometricError: float representing the root item's geometric error of the tileset.
     """
     def __init__(self, tileset_path):
-        with open(tileset_path, mode="r") as tileset:
-            self._raw_data = json.load(tileset)
+        try:
+            with open(tileset_path, mode="r") as tileset:
+                self._raw_data = json.load(tileset)
+        except FileNotFoundError as _:
+            raise FileNotFoundError('Parser stopped prematurely. File not found.')
         self._split_raw_data()
         self._parse_raw_data()
 
