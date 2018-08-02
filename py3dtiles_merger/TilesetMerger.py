@@ -60,7 +60,8 @@ class TilesetMerger(object):
 
         output["root"]['boundingVolume'] = {}
         output["root"]['boundingVolume']['box'] = TilesetUtilities.export_bounds_to_3dtiles_volumeBoundBox(cls.union_bounds)
-        output["root"]["geometricError"] = cls.geometricError_sum,
+        output["root"]["geometricError"] = cls.geometricError_sum
+        output["root"]["refine"] = "ADD"
 
         output['root']['children'] = cls.children
         return output
