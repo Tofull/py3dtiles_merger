@@ -29,10 +29,31 @@ class TilesetParser(object):
         self._split_raw_data()
         self._parse_raw_data()
 
+    def _load_transform_attribute_from_raw(self):
+        self._raw_transform = [
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+        ]
+        if "transform" in self._raw_data["root"]:
+            self._raw_transform = self._raw_data["root"]["transform"]
+
     def _split_raw_data(self):
-        self._raw_transform = self._raw_data["root"]["transform"]
+        self._load_transform_attribute_from_raw()
+        self._load_boundingVolumeBox_attribute_from_raw()
+        self._load_geometricError_attribute_from_raw()
+
+    def _load_geometricError_attribute_from_raw(self):
+        if "geometricError" in self._raw_data["root"]:
+            self._raw_geometricError = self._raw_data["root"]["geometricError"]
+        elif "geometricError" in self._raw_data:
+            self._raw_geometricError = self._raw_data["geometricError"]
+        else:
+            self._raw_geometricError = 0
+
+    def _load_boundingVolumeBox_attribute_from_raw(self):
         self._raw_boundingVolumeBox = self._raw_data["root"]["boundingVolume"]['box']
-        self._raw_geometricError = self._raw_data["root"]["geometricError"]
 
     def _extract_rotation_matrix_only(self):
         # extract only rotation matrix
